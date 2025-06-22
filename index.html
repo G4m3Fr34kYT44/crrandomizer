@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Clash Royale Deck Generator</title>
   <style>
     body {
@@ -62,37 +62,45 @@
   <div id="deck" class="deck"></div>
 
   <script>
+    const apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImJjZjkyOGU2LTkzZmEtNDRiMS1iMTFhLTIxMjlmZDViZDNjNCIsImlhdCI6MTc1MDU5NzEwMCwic3ViIjoiZGV2ZWxvcGVyLzYxNzJhZWZhLTczMTctM2E0Ny1hMTg5LTA1MGM4OGI1OWQ4MyIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.uC8PdEMJRb412_3WedXwD_AyEg_q4gr_L3FssonrZ4ZEmbG3HfL-2YvReOWrWsSxqXZy8auoKfNh6rAyLXu_Xg';
     let cardsByRarity = {};
 
     function enableButtons() {
-      document.querySelectorAll("button").forEach((btn) => (btn.disabled = false));
-      document.getElementById("loading").style.display = "none";
+      document.querySelectorAll('button').forEach(btn => btn.disabled = false);
+      document.getElementById('loading').style.display = 'none';
     }
 
-    fetch('/.netlify/functions/proxy-cards')
-      .then(res => res.json())
-      .then(data => {
-        cardsByRarity = data.items.reduce((acc, card) => {
-          const rarity =
-            card.maxLevel === 14 ? 'Common' :
-            card.maxLevel === 12 ? 'Rare' :
-            card.maxLevel === 9  ? 'Epic' :
-            card.maxLevel === 6  ? 'Legendary' :
-            card.maxLevel === 4  ? 'Champion' :
-            'Other';
-          if (!acc[rarity]) acc[rarity] = [];
-          acc[rarity].push(card);
-          return acc;
-        }, {});
-        enableButtons();
-      })
-      .catch(err => {
-        console.error('Failed to load cards:', err);
-        document.getElementById("loading").textContent = 'Failed to load cards. Check backend connection.';
-      });
+    fetch('/.netlify/functions/proxy-cards', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      cardsByRarity = data.items.reduce((acc, card) => {
+        const rarity =
+          card.maxLevel === 14 ? 'Common' :
+          card.maxLevel === 12 ? 'Rare' :
+          card.maxLevel === 9  ? 'Epic' :
+          card.maxLevel === 6  ? 'Legendary' :
+          card.maxLevel === 4  ? 'Champion' :
+          'Other';
+        if (!acc[rarity]) acc[rarity] = [];
+        acc[rarity].push(card);
+        return acc;
+      }, {});
+      enableButtons();
+    })
+    .catch(err => {
+      console.error('Failed to load cards:', err);
+      document.getElementById('loading').textContent = 'Failed to load cards. Check your API key.';
+    });
 
     function generateDeck(rarity) {
-      const pool = rarity === 'Mixed' ? Object.values(cardsByRarity).flat() : cardsByRarity[rarity] || [];
+      const pool = rarity === 'Mixed'
+        ? Object.values(cardsByRarity).flat()
+        : cardsByRarity[rarity] || [];
 
       if (!pool.length) {
         alert('No cards available for this rarity.');
@@ -109,14 +117,15 @@
         }
       }
 
-      const deckDiv = document.getElementById("deck");
-      deckDiv.innerHTML = "";
-      deck.forEach((card) => {
-        const div = document.createElement("div");
-        div.className = "card";
+      const deckDiv = document.getElementById('deck');
+      deckDiv.innerHTML = '';
+      deck.forEach(card => {
+        const div = document.createElement('div');
+        div.className = 'card';
         div.innerHTML = `
           <img src="${card.iconUrls.medium}" alt="${card.name}" />
-          <div class="card-name">${card.name}</div>`;
+          <div class="card-name">${card.name}</div>
+        `;
         deckDiv.appendChild(div);
       });
     }
