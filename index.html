@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clash Royale Deck Generator</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffcc00;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #888;
+      cursor: not-allowed;
+    }
+    .deck {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      width: 100px;
+    }
+    .card img {
+      width: 100%;
+    }
+    .card-name {
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+    #loading {
+      margin: 20px 0;
+      font-style: italic;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clash Royale Deck Generator</h1>
+  <div id="loading">Loading cards, please wait...</div>
+  <div>
+    <button onclick="generateDeck('Common')" disabled>Common</button>
+    <button onclick="generateDeck('Rare')" disabled>Rare</button>
+    <button onclick="generateDeck('Epic')" disabled>Epic</button>
+    <button onclick="generateDeck('Legendary')" disabled>Legendary</button>
+    <button onclick="generateDeck('Champion')" disabled>Champion</button>
+    <button onclick="generateDeck('Mixed')" disabled>Mixed</button>
+  </div>
+  <div id="deck" class="deck"></div>
+
+  <script>
+    const apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImJjZjkyOGU2LTkzZmEtNDRiMS1iMTFhLTIxMjlmZDViZDNjNCIsImlhdCI6MTc1MDU5NzEwMCwic3ViIjoiZGV2ZWxvcGVyLzYxNzJhZWZhLTczMTctM2E0Ny1hMTg5LTA1MGM4OGI1OWQ4MyIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI0NS43OS4yMTguNzkiXSwidHlwZSI6ImNsaWVudCJ9XX0.uC8PdEMJRb412_3WedXwD_AyEg_q4gr_L3FssonrZ4ZEmbG3HfL-2YvReOWrWsSxqXZy8auoKfNh6rAyLXu_Xg';
+    let cardsByRarity = {};
+
+    function enableButtons() {
+      document.querySelectorAll('button').forEach(btn => btn.disabled = false);
+      document.getElementById('loading').style.display = 'none';
+    }
+
+    fetch('https://api.clashroyale.com/v1/cards', {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      cardsByRarity = data.items.reduce((acc, card) => {
+        const rarity =
+          card.maxLevel === 14 ? 'Common' :
+          card.maxLevel === 12 ? 'Rare' :
+          card.maxLevel === 9  ? 'Epic' :
+          card.maxLevel === 6  ? 'Legendary' :
+          card.maxLevel === 4  ? 'Champion' :
+          'Other';
+        if (!acc[rarity]) acc[rarity] = [];
+        acc[rarity].push(card);
+        return acc;
+      }, {});
+      enableButtons();
+    })
+    .catch(err => {
+      console.error('Failed to load cards:', err);
+      document.getElementById('loading').textContent = 'Failed to load cards. Check your API key.';
+    });
+
+    function generateDeck(rarity) {
+      const pool = rarity === 'Mixed'
+        ? Object.values(cardsByRarity).flat()
+        : cardsByRarity[rarity] || [];
+
+      if (!pool.length) {
+        alert('No cards available for this rarity.');
+        return;
+      }
+
+      const deck = [];
+      const used = new Set();
+      while (deck.length < 8 && used.size < pool.length) {
+        const card = pool[Math.floor(Math.random() * pool.length)];
+        if (!used.has(card.id)) {
+          deck.push(card);
+          used.add(card.id);
+        }
+      }
+
+      const deckDiv = document.getElementById('deck');
+      deckDiv.innerHTML = '';
+      deck.forEach(card => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+          <img src="${card.iconUrls.medium}" alt="${card.name}" />
+          <div class="card-name">${card.name}</div>
+        `;
+        deckDiv.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
