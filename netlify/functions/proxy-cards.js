@@ -17,3 +17,5 @@ exports.handler = async function(event, context) {
     body: JSON.stringify(data),
   };
 };
+
+console.log("API_KEY:", process.env.API_KEY);
