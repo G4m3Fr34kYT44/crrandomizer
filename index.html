@@ -70,7 +70,7 @@
       document.getElementById('loading').style.display = 'none';
     }
 
-    fetch('/.netlify/functions/proxy-cards', {
+    fetch('https://proxy.royaleapi.dev/v1/cards', {
       headers: {
         'Accept': 'application/json',
         'Authorization': `Bearer ${apiKey}`
