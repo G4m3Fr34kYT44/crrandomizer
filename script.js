@@ -5,7 +5,7 @@ function enableButtons() {
   document.getElementById('loading').style.display = 'none';
 }
 
-fetch('/.netlify/functions/get-cards')
+fetch('/netlify/functions/get-cards')
   .then(res => res.json())
   .then(data => {
     const cards = data.items;
