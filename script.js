@@ -21,6 +21,17 @@ fetch('cards.json')
     document.getElementById('loading').textContent = 'Failed to load cards.';
   });
 
+// 🔧 Helper to generate image URL from card name
+function getCardImageUrl(cardName) {
+  const formatted = cardName
+    .toLowerCase()
+    .replace(/[\s\.']/g, '-')       // replace spaces, dots, apostrophes with hyphens
+    .replace(/-+/g, '-')            // collapse multiple hyphens
+    .replace(/[^a-z0-9\-]/g, '');   // remove any other characters
+
+  return `https://royaleapi.github.io/cr-api-data/assets/cards/name/${formatted}.png`;
+}
+
 function generateDeck(rarity) {
   const pool = rarity === 'Mixed'
     ? Object.values(cardsByRarity).flat()
@@ -48,9 +59,7 @@ function generateDeck(rarity) {
   const deckDiv = document.getElementById('deck');
   deckDiv.innerHTML = '';
   deck.forEach(card => {
-    const cardKey = card.name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '').replace(/'/g, '');
-    const imageUrl = `https://royaleapi.github.io/cr-api-data/assets/cards/name/${cardKey}.png`;
-
+    const imageUrl = getCardImageUrl(card.name);
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
