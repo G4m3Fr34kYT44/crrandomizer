@@ -6,7 +6,7 @@ function enableButtons() {
   document.getElementById('loading').style.display = 'none';
 }
 
-fetch('https://proxy.royaleapi.dev/v1/cards', {
+fetch('https://royaleapi.github.io/cr-api-data/json/cards.json', {
   headers: {
     'Accept': 'application/json',
     'Authorization': `Bearer ${apiKey}`
