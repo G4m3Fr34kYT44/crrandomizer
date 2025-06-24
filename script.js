@@ -9,7 +9,7 @@ function enableButtons() {
 fetch('https://royaleapi.github.io/cr-api-data/json/cards.json')
   .then(res => res.json())
   .then(data => {
-    cardsByRarity = data.items.reduce((acc, card) => {
+    cardsByRarity = data.reduce((acc, card) => {
       const rarity =
         card.maxLevel === 14 ? 'Common' :
         card.maxLevel === 12 ? 'Rare' :
