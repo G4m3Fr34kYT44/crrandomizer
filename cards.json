@@ -858,19 +858,6 @@
         "is_evolved": false
     },
     {
-        "key": "super-witch",
-        "name": "Super Witch",
-        "sc_key": "SuperWitch",
-        "elixir": 6,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 5,
-        "description": "Summons Skeletons, shoots destructo beams, has glowing pink eyes that unfortunately don't shoot lasers.",
-        "id": 26000066,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
         "key": "elixir-golem",
         "name": "Elixir Golem",
         "sc_key": "ElixirGolem",
@@ -910,32 +897,6 @@
         "is_evolved": false
     },
     {
-        "key": "super-lava-hound",
-        "name": "Super Lava Hound",
-        "sc_key": "SuperLavaHound",
-        "elixir": 8,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 10,
-        "description": "The Lava Hound is a majestic flying beast that attacks buildings. The Lava Pups are less majestic angry babies that attack anything.",
-        "id": 26000070,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
-        "key": "super-magic-archer",
-        "name": "Super Magic Archer",
-        "sc_key": "SuperEliteArcher",
-        "elixir": 5,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 13,
-        "description": "Not quite a Wizard, nor an Archer - he shoots a magic arrow that passes through and damages all enemies in its path. It's not a trick, it's magic!",
-        "id": 26000071,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
         "key": "archer-queen",
         "name": "Archer Queen",
         "sc_key": "ArcherQueen",
@@ -945,19 +906,6 @@
         "arena": 17,
         "description": "She is fast, deadly and hard to catch. Beware of her crossbow bolts and try not to blink - you might miss her!",
         "id": 26000072,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
-        "key": "santa-hog-rider",
-        "name": "Santa Hog Rider",
-        "sc_key": "SuperHogRider",
-        "elixir": 5,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 5,
-        "description": "Fast melee troop that targets buildings and can jump over the river. He followed the echoing call of \"Hog Riderrrrr\" all the way through the Arena doors.",
-        "id": 26000073,
         "evolved_spells_sc_key": "",
         "is_evolved": false
     },
@@ -975,19 +923,6 @@
         "is_evolved": false
     },
     {
-        "key": "super-ice-golem",
-        "name": "Super Ice Golem",
-        "sc_key": "SuperIceGolemite",
-        "elixir": 4,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 8,
-        "description": "He's tough, targets buildings and explodes when destroyed, slowing nearby enemies. Made entirely out of ice... or is he?! Yes.",
-        "id": 26000075,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
         "key": "monk",
         "name": "Monk",
         "sc_key": "Monk",
@@ -1001,19 +936,6 @@
         "is_evolved": false
     },
     {
-        "key": "super-archers",
-        "name": "Super Archers",
-        "sc_key": "SuperArcher",
-        "elixir": 3,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 24,
-        "description": "A pair of lightly armored ranged attackers. They'll help you take down ground and air units, but you're on your own with hair coloring advice.",
-        "id": 26000078,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
         "key": "skeleton-dragons",
         "name": "Skeleton Dragons",
         "sc_key": "SkeletonDragons",
@@ -1023,32 +945,6 @@
         "arena": 4,
         "description": "This pair of skeletal scorchers deal Area Damage and fly above the Arena. They also play a mean rib cage xylophone duet.",
         "id": 26000080,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
-        "key": "terry",
-        "name": "Terry",
-        "sc_key": "SuperHogRiderTerry",
-        "elixir": 4,
-        "type": "Troop",
-        "rarity": "Champion",
-        "arena": 16,
-        "description": "Terry and his trusty companion Pim Pim bring their unconventional Hog Riding skills to the Arena!",
-        "id": 26000081,
-        "evolved_spells_sc_key": "",
-        "is_evolved": false
-    },
-    {
-        "key": "super-mini-pekka",
-        "name": "Super Mini P.E.K.K.A",
-        "sc_key": "SuperMiniPekka",
-        "elixir": 5,
-        "type": "Troop",
-        "rarity": "Legendary",
-        "arena": 14,
-        "description": "The Arena is a certified butterfly-free zone. No distractions for P.E.K.K.A, only destruction.",
-        "id": 26000082,
         "evolved_spells_sc_key": "",
         "is_evolved": false
     },
