@@ -48,11 +48,11 @@ function generateDeck(rarity) {
   const deckDiv = document.getElementById('deck');
   deckDiv.innerHTML = '';
   deck.forEach(card => {
-    const imageUrl = `https://royaleapi.github.io/cr-api-data/assets/cards/${card.id}.png`;
+    const imageUrl = `https://royaleapi.github.io/cr-api-data/assets/cards/${card.name.replace(/\s+/g, '_')}.png`;
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
-      <img src="${imageUrl}" alt="${card.name}" />
+      <img src="${imageUrl}" alt="${card.name}" onerror="this.style.display='none'" />
       <div class="card-name">${card.name}</div>
     `;
     deckDiv.appendChild(div);
