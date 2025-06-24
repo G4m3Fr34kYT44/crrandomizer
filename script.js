@@ -9,7 +9,6 @@ fetch('cards.json')
   .then(res => res.json())
   .then(data => {
     cardsByRarity = data.reduce((acc, card) => {
-      if (!card.iconUrls?.medium) return acc;
       const rarity = card.rarity;
       if (!acc[rarity]) acc[rarity] = [];
       acc[rarity].push(card);
@@ -40,24 +39,21 @@ function generateDeck(rarity) {
     const card = pool[Math.floor(Math.random() * pool.length)];
     if (!card || !card.id || used.has(card.id)) continue;
 
-    if (!card.iconUrls || !card.iconUrls.medium) continue;
-
-    if (card.rarity === 'Champion') {
-      if (hasChampion) continue;
-      hasChampion = true;
-    }
+    if (card.rarity === 'Champion' && hasChampion) continue;
 
     deck.push(card);
     used.add(card.id);
+    if (card.rarity === 'Champion') hasChampion = true;
   }
 
   const deckDiv = document.getElementById('deck');
   deckDiv.innerHTML = '';
   deck.forEach(card => {
+    const imageUrl = card.iconUrls?.medium || `images/${card.name.replace(/\s+/g, '_')}.png`;
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
-      <img src="${card.iconUrls.medium}" alt="${card.name}" />
+      <img src="${imageUrl}" alt="${card.name}" />
       <div class="card-name">${card.name}</div>
     `;
     deckDiv.appendChild(div);
