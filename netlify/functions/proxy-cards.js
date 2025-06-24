@@ -3,7 +3,7 @@ const fetch = require('node-fetch'); // Automatically available in Netlify Node 
 exports.handler = async function () {
   const API_KEY = process.env.CLASH_API_KEY;
   try {
-    const response = await fetch('https://api.clashroyale.com/v1/cards', {
+    const response = await fetch('https://proxy.clashroyale.com/v1/cards', {
       headers: { Authorization: `Bearer ${API_KEY}` },
     });
 
