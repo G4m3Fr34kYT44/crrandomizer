@@ -6,32 +6,27 @@ function enableButtons() {
   document.getElementById('loading').style.display = 'none';
 }
 
-fetch('https://royaleapi.github.io/cr-api-data/json/cards.json', {
-  headers: {
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${apiKey}`
-  }
-})
-.then(res => res.json())
-.then(data => {
-  cardsByRarity = data.items.reduce((acc, card) => {
-    const rarity =
-      card.maxLevel === 14 ? 'Common' :
-      card.maxLevel === 12 ? 'Rare' :
-      card.maxLevel === 9  ? 'Epic' :
-      card.maxLevel === 6  ? 'Legendary' :
-      card.maxLevel === 4  ? 'Champion' :
-      'Other';
-    if (!acc[rarity]) acc[rarity] = [];
-    acc[rarity].push(card);
-    return acc;
-  }, {});
-  enableButtons();
-})
-.catch(err => {
-  console.error('Failed to load cards:', err);
-  document.getElementById('loading').textContent = 'Failed to load cards. Check your API key.';
-});
+fetch('https://royaleapi.github.io/cr-api-data/json/cards.json')
+  .then(res => res.json())
+  .then(data => {
+    cardsByRarity = data.items.reduce((acc, card) => {
+      const rarity =
+        card.maxLevel === 14 ? 'Common' :
+        card.maxLevel === 12 ? 'Rare' :
+        card.maxLevel === 9  ? 'Epic' :
+        card.maxLevel === 6  ? 'Legendary' :
+        card.maxLevel === 4  ? 'Champion' :
+        'Other';
+      if (!acc[rarity]) acc[rarity] = [];
+      acc[rarity].push(card);
+      return acc;
+    }, {});
+    enableButtons();
+  })
+  .catch(err => {
+    console.error('Failed to load cards:', err);
+    document.getElementById('loading').textContent = 'Failed to load cards.';
+  });
 
 function generateDeck(rarity) {
   const pool = rarity === 'Mixed'
