@@ -5,10 +5,11 @@ function enableButtons() {
   document.getElementById('loading').style.display = 'none';
 }
 
-fetch('https://royaleapi.github.io/cr-api-data/json/cards.json')
+fetch('cards.json')
   .then(res => res.json())
   .then(data => {
     cardsByRarity = data.reduce((acc, card) => {
+      if (!card.iconUrls?.medium) return acc;
       const rarity = card.rarity;
       if (!acc[rarity]) acc[rarity] = [];
       acc[rarity].push(card);
@@ -37,16 +38,17 @@ function generateDeck(rarity) {
 
   while (deck.length < 8 && used.size < pool.length) {
     const card = pool[Math.floor(Math.random() * pool.length)];
-    const cardRarity = card.rarity;
+    if (!card || !card.id || used.has(card.id)) continue;
 
-    if (!used.has(card.id)) {
-      if (cardRarity === 'Champion') {
-        if (hasChampion) continue;
-        hasChampion = true;
-      }
-      deck.push(card);
-      used.add(card.id);
+    if (!card.iconUrls || !card.iconUrls.medium) continue;
+
+    if (card.rarity === 'Champion') {
+      if (hasChampion) continue;
+      hasChampion = true;
     }
+
+    deck.push(card);
+    used.add(card.id);
   }
 
   const deckDiv = document.getElementById('deck');
