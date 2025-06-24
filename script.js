@@ -38,7 +38,6 @@ function generateDeck(rarity) {
   while (deck.length < 8 && used.size < pool.length) {
     const card = pool[Math.floor(Math.random() * pool.length)];
     if (!card || !card.id || used.has(card.id)) continue;
-
     if (card.rarity === 'Champion' && hasChampion) continue;
 
     deck.push(card);
@@ -49,7 +48,7 @@ function generateDeck(rarity) {
   const deckDiv = document.getElementById('deck');
   deckDiv.innerHTML = '';
   deck.forEach(card => {
-    const imageUrl = card.iconUrls?.medium || `images/${card.name.replace(/\s+/g, '_')}.png`;
+    const imageUrl = `https://royaleapi.github.io/cr-api-data/assets/cards/${card.id}.png`;
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
