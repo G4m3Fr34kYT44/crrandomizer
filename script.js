@@ -5,7 +5,7 @@ function enableButtons() {
   document.getElementById('loading').style.display = 'none';
 }
 
-fetch('/netlify/functions/proxy-cards')
+fetch('/.netlify/functions/proxy-cards')
   .then(res => res.json())
   .then(data => {
     const cards = data.items;
