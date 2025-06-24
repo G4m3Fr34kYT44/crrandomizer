@@ -1,0 +1,42 @@
+body {
+  background: #1e1e1e;
+  color: #fff;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffcc00;
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+.deck {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+.card {
+  width: 100px;
+}
+.card img {
+  width: 100%;
+}
+.card-name {
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+#loading {
+  margin: 20px 0;
+  font-style: italic;
+  color: #ccc;
+}
